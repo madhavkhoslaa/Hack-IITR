@@ -52,10 +52,25 @@ def what2grow(arr):
 
 @app.route('/add_to_database/<string:arr>', methods=["GET"])
 def add_to_database(arr):
-    pass
+    data= argparser_(arr)
+    if len(data) > 6 or < 6:
+        return jsonify("Cannot fit in data 6 parameters expected (Moisture, potassium, Calcium, Nitrogen, Phosphorus, potash)")
+    else:
+        connection= psycopg2.connect(database= "da1p9ru6qnr7o1", user='wbwmyrgtobbutg', port="5432", password="5bdc8dbef1b91a1c52b4f74076c7076070b9a4b5e1c9f40775851c216fcb5e79", host="ec2-54-195-252-243.eu-west-1.compute.amazonaws.com")
+        cursor = connection.cursor()
+        postgres_insert_query = "INSERT INTO SENSOR_VALUES (Moisture,potassium , Calcium, Nitrogen, Phosphorus, potash) VALUES (%s, %s, %s, %s,%s, %s)".format(data)
+        cursor.execute(postgres_insert_query)
+        cursor.close()
+        connection.close()
 @app.route('/route_query/<string:query>/<string:token>', methods=["GET"])
 def route_query(query, token):
-    pass
+    if token in TOKEN_LIST:
+        connection= psycopg2.connect(database= "da1p9ru6qnr7o1", user='wbwmyrgtobbutg', port="5432", password="5bdc8dbef1b91a1c52b4f74076c7076070b9a4b5e1c9f40775851c216fcb5e79", host="ec2-54-195-252-243.eu-west-1.compute.amazonaws.com")
+        cursor = connection.cursor()
+        cursor.execute(query)
+        return 400
+    else:
+        return jsonify("Token not correct")
 @app.route("/", methods=['GET'])
 def welcome():
     help_= dict()
