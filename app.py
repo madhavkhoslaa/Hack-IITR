@@ -7,8 +7,8 @@ import random
 
 app = Flask(__name__)
 
-def argparser_(strr):
-    return list(map(int, strr.split('%')))
+def argparser_(strr, delim_='%'):
+    return list(map(int, strr.split(delim_)))
 
 
 @app.route('/pred_fertilizer/<string:arr>', methods=['GET'])
@@ -17,9 +17,9 @@ def pred_fertilizer(arr):
     #Labels_crop = pickle.load(open("serialised_data/Labels_crop", 'rb'))
     #Labels_Soil = pickle.load(open("serialised_data/Labels_Soil", 'rb'))
     Labels_fertilizer = pickle.load(open("serialised_data/Labels_fertilizer", 'rb'))
-    a = argparser_(arr)
+    a = argparser_(arr, 'a')
     pred = Labels_fertilizer.inverse_transform(
-        model.predict(np.array(a).reshape(1, 8)))
+            model.predict(np.array(a).reshape(1, 8)))
     return jsonify(pred[0])
 
 
@@ -38,9 +38,9 @@ def stats():
 
 @app.route('/what2grow/<string:arr>', methods=['GET'])
 def what2grow(arr):
-    data = argparser_(arr)
     model2 = pickle.load(open("serialised_data/WHAT2GR0-MODEL", 'rb'))
     Label_Crops_type = pickle.load(open("serialised_data/Label_Crops_type", 'rb'))
+    data = argparser_(arr, 'a')
     input = np.array(data).reshape(1, 5)
     preds = Label_Crops_type.inverse_transform(model2.predict(input))[0]
     return jsonify(preds)
