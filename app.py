@@ -58,7 +58,7 @@ def add_to_database(arr):
     else:
         connection= psycopg2.connect(database= "da1p9ru6qnr7o1", user='wbwmyrgtobbutg', port="5432", password="5bdc8dbef1b91a1c52b4f74076c7076070b9a4b5e1c9f40775851c216fcb5e79", host="ec2-54-195-252-243.eu-west-1.compute.amazonaws.com")
         cursor = connection.cursor()
-        postgres_insert_query = "INSERT INTO SENSOR_VALUES (Moisture,potassium , Calcium, Nitrogen, Phosphorus, potash) VALUES (%s, %s, %s, %s,%s, %s)".format(data)
+        postgres_insert_query = "INSERT INTO SENSOR_VALUES (Moisture,potassium , Calcium, Nitrogen, Phosphorus, potash) VALUES (%s, %s, %s, %s,%s, %s)".format(data[0],data[1],data[2],data[3],data[4],data[5])
         cursor.execute(postgres_insert_query)
         cursor.close()
         connection.close()
@@ -71,6 +71,15 @@ def route_query(query, token):
         return 400
     else:
         return jsonify("Token not correct")
+
+@app.route("/view_db", methods=['GET'])
+def view_db():
+    connection= psycopg2.connect(database= "da1p9ru6qnr7o1", user='wbwmyrgtobbutg', port="5432", password="5bdc8dbef1b91a1c52b4f74076c7076070b9a4b5e1c9f40775851c216fcb5e79", host="ec2-54-195-252-243.eu-west-1.compute.amazonaws.com")
+    cursor = connection.cursor()
+    cursor.execute("select * from SENSOR_VALUES")
+    record = cursor.fetchone()
+    return jsonify(record)
+
 @app.route("/", methods=['GET'])
 def welcome():
     help_= dict()
