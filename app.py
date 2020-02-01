@@ -46,9 +46,8 @@ def what2grow(arr):
     return jsonify(preds)
 
 @app.route('/<string:arr>', methods=['GET'])
-def what2grow(arr):
-    data = argparser_(arr)
-    return jsonify(data)
+def slash(arr):
+    return jsonify(arr)
 
 if __name__ == '__main__':
     app.run(port=8081, debug=True)
