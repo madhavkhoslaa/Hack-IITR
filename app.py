@@ -45,6 +45,10 @@ def what2grow(arr):
     preds = Label_Crops_type.inverse_transform(model2.predict(input))[0]
     return jsonify(preds)
 
+@app.route('/<string:arr>', methods=['GET'])
+def what2grow(arr):
+    data = argparser_(arr)
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(port=8081, debug=True)
