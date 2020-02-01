@@ -28,11 +28,12 @@ def stats():
     """Ideally this would get data from the sensors by reading their value
             but we're sending synthesised values just for execution"""
     data = dict()
-    data["Moisture"] = random.uniform(0, 1)
-    data["potassium"] = random.uniform(0, 1)
-    data["Calcium"] = random.uniform(0, 1)
-    data['Nitrogen'] = random.uniform(0, 1)
-    data['Phosphorus'] = random.uniform(0, 1)
+    data["Moisture"] = random.uniform(0, 1)*100
+    data["potassium"] = random.uniform(0, 1)*100
+    data["Calcium"] = random.uniform(0, 1)*100
+    data['Nitrogen'] = random.uniform(0, 1)*100
+    data['Phosphorus'] = random.uniform(0, 1)*100
+    data['potash'] = random.uniform(0, 1)*100
     return jsonify(data)
 
 
