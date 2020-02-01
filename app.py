@@ -78,8 +78,8 @@ def welcome():
     help_["Sensors"]= "Sensors would be community owned by farmers and they can get to know about their individual fields"
     help_["Endpoints Available"]= ["/what2grow/<string:arr>", "/stats", '/pred_fertilizer/<string:arr>']
     help_["How to Rest call an array ?"]= "arr at the end of the url expects array elements with a delimiter as a, didnt use json because easier to parse this ways"
-    help_["/what2grow/"]= "This inputs expected parameters from the farmer and tells him what to grow this season"
-    help_["/pred_fertilizer/"]= "This uses expected data from the farmer about the soil and tells the fertilizer to use"
+    help_["/what2grow/"]= "This inputs expected parameters from the farmer and tells him what to grow this season. Parameters are [start_month, Cultivation_time, Min_temp, max_temp, rainfall_req]"
+    help_["/pred_fertilizer/"]= "This uses expected data from the farmer about the soil and tells the fertilizer to use. Parameters are [Temparature Humidity Moisture  Soil Type  Crop Type  Nitrogen Potassium Phosphorous]"
     help_["Example query"]= "https://kisan-app.herokuapp.com/1%2%3%4%5"
     help_["add_to_database/<string:arr>"]= "Command to add values to the database"
     help_["route_query/<string:query>/<string:token>"]= "Route queries to the open database for researchers who have access token"
