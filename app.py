@@ -10,6 +10,10 @@ app = Flask(__name__)
 
 @app.route('/pred_fertilizer', methods=['GET'])
 def pred_fertilizer():
+	model = pickle.load(open("serialised_data/SVC_FERTILISER", 'rb'))
+    Labels_crop = pickle.load(open("serialised_data/Labels_crop", 'rb'))
+    Labels_fertilizer = pickle.load(open("serialised_data/Labels_fertilizer", 'rb'))
+    Labels_Soil = pickle.load(open("serialised_data/Labels_Soil", 'rb'))
     data = request.json
     a = data['content']
     pred = Labels_fertilizer.inverse_transform(
@@ -33,18 +37,13 @@ def stats():
 @app.route('/what2grow', methods=['GET'])
 def what2grow():
     data = request.json
+    model2 = pickle.load(open("serialised_data/WHAT2GR0-MODEL", 'rb'))
+    Label_Crops_type = pickle.load(open("serialised_data/Label_Crops_type", 'rb'))
     input = np.array(data['content']).reshape(1, 5)
     preds = Label_Crops_type.inverse_transform(model2.predict(input))[0]
     return jsonify(preds)
 
 
 if __name__ == '__main__':
-    model = pickle.load(open("serialised_data/SVC_FERTILISER", 'rb'))
-    Labels_crop = pickle.load(open("serialised_data/Labels_crop", 'rb'))
-    Labels_fertilizer = pickle.load(
-        open("serialised_data/Labels_fertilizer", 'rb'))
-    Labels_Soil = pickle.load(open("serialised_data/Labels_Soil", 'rb'))
-    model2 = pickle.load(open("serialised_data/WHAT2GR0-MODEL", 'rb'))
-    Label_Crops_type = pickle.load(
-        open("serialised_data/Label_Crops_type", 'rb'))
-    app.run(port=8080)
+
+    app.run(port=8081)
