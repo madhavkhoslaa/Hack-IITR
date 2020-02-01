@@ -8,7 +8,7 @@ import random
 app = Flask(__name__)
 
 
-@app.route('/pred_fertilizer', methods=['GET', 'POST'])
+@app.route('/pred_fertilizer', methods=['GET'])
 def pred_fertilizer():
     model= pickle.load(open("serialised_data/SVC_FERTILISER", 'rb'))
     Labels_crop = pickle.load(open("serialised_data/Labels_crop", 'rb'))
@@ -21,7 +21,7 @@ def pred_fertilizer():
     return jsonify(pred[0])
 
 
-@app.route('/stats', methods=['GET', 'POST'])
+@app.route('/stats', methods=['GET'])
 def stats():
     """Ideally this would get data from the sensors by reading their value
             but we're sending synthesised values just for execution"""
@@ -34,7 +34,7 @@ def stats():
     return jsonify(data)
 
 
-@app.route('/what2grow', methods=['GET', 'POST'])
+@app.route('/what2grow', methods=['GET'])
 def what2grow():
     data = request.json
     model2 = pickle.load(open("serialised_data/WHAT2GR0-MODEL", 'rb'))
@@ -42,11 +42,6 @@ def what2grow():
     input = np.array(data['content']).reshape(1, 5)
     preds = Label_Crops_type.inverse_transform(model2.predict(input))[0]
     return jsonify(preds)
-
-@app.route('/'):
-def slash():
-    data= request.json
-    return jsonify(data)
 
 
 if __name__ == '__main__':
