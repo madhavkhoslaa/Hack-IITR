@@ -47,4 +47,4 @@ if __name__ == '__main__':
     model2 = pickle.load(open("serialised_data/WHAT2GR0-MODEL", 'rb'))
     Label_Crops_type = pickle.load(
         open("serialised_data/Label_Crops_type", 'rb'))
-    app.run()
+    app.run(port=8080)
