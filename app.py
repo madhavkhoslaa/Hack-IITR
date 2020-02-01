@@ -10,10 +10,10 @@ app = Flask(__name__)
 
 @app.route('/pred_fertilizer', methods=['GET'])
 def pred_fertilizer():
-	model = pickle.load(open("serialised_data/SVC_FERTILISER", 'rb'))
+    model= pickle.load(open("serialised_data/SVC_FERTILISER", 'rb'))
     Labels_crop = pickle.load(open("serialised_data/Labels_crop", 'rb'))
-    Labels_fertilizer = pickle.load(open("serialised_data/Labels_fertilizer", 'rb'))
     Labels_Soil = pickle.load(open("serialised_data/Labels_Soil", 'rb'))
+    Labels_fertilizer = pickle.load(open("serialised_data/Labels_fertilizer", 'rb'))
     data = request.json
     a = data['content']
     pred = Labels_fertilizer.inverse_transform(
@@ -45,5 +45,6 @@ def what2grow():
 
 
 if __name__ == '__main__':
+
 
     app.run(port=8081)
