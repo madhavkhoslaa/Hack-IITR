@@ -53,7 +53,7 @@ def what2grow(arr):
 @app.route('/add_to_database/<string:arr>', methods=["GET"])
 def add_to_database(arr):
     data= argparser_(arr)
-    if len(data) > 6 or < 6:
+    if len(data) > 6 or len(data) < 6:
         return jsonify("Cannot fit in data 6 parameters expected (Moisture, potassium, Calcium, Nitrogen, Phosphorus, potash)")
     else:
         connection= psycopg2.connect(database= "da1p9ru6qnr7o1", user='wbwmyrgtobbutg', port="5432", password="5bdc8dbef1b91a1c52b4f74076c7076070b9a4b5e1c9f40775851c216fcb5e79", host="ec2-54-195-252-243.eu-west-1.compute.amazonaws.com")
