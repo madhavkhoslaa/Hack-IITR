@@ -5,10 +5,10 @@ import numpy as np
 import json
 import random
 import psycopg2
-
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 TOKEN_LIST=['DWUDBWQFIVEFESZJNFEFNZEFN']
 
 def argparser_(strr, delim_='%'):
